@@ -115,7 +115,7 @@ const SelectScratch = ({
     setSearchValue(e.target.value);
   };
   const onBackspace = (e: any) => {
-    if (e.code === "Backspace") {
+    if (e.code === "Backspace" && searchValue === "") {
       if (backspace === "normal") {
         setLastOption(selectedValue[selectedValue.length - 1]);
         setBackspace("highlight");
