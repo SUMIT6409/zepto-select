@@ -111,19 +111,33 @@ const SelectScratch = ({
     return selectedValue?.value === option?.value;
   };
 
-  const onSearch = (e: any) => {
-    setSearchValue(e.target.value);
-  };
+  // const onSearch = (e: any) => {
+  //   setSearchValue(e.target.value);
+  // };
   const onBackspace = (e: any) => {
-    if (e.code === "Backspace" && searchValue === "") {
-      if (backspace === "normal") {
-        setLastOption(selectedValue[selectedValue.length - 1]);
-        setBackspace("highlight");
+    // console.log(e.key);
+    if (e.code !== "Backspace") {
+      setSearchValue(searchValue + e.key);
+    } else {
+      if (searchValue.length > 0) {
+        setSearchValue(searchValue.substring(0, searchValue.length - 1));
       } else {
-        onTagRemove(e, lastOption);
-        setBackspace("normal");
+        if (backspace === "normal") {
+          setLastOption(selectedValue[selectedValue.length - 1]);
+          setBackspace("highlight");
+        } else {
+          onTagRemove(e, lastOption);
+          setBackspace("normal");
+        }
       }
     }
+    // if (e.code === "Backspace" && searchValue === "") {
+    //   if (backspace === "normal") {
+
+    //   } else {
+
+    //   }
+    // }
   };
 
   const getOptions = () => {
@@ -166,10 +180,10 @@ const SelectScratch = ({
             <div className="search-box">
               <input
                 className="form-control"
-                onChange={onSearch}
+                onChange={() => {}}
                 value={searchValue}
                 ref={searchRef}
-                onKeyUp={onBackspace}
+                onKeyDown={onBackspace}
               />
             </div>
           )}
